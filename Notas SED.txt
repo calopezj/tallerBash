@@ -1,0 +1,88 @@
+sed [-r] 's/REGEX/REPL/g' FICHERO
+
+Expresiones regulares
+RE para encontrar palabras
+([a-zA-Z]+[^a-zA-Z]+){6}
+
++ : uno o mas
+^ que no esté en ese rango
+Las llaves buscan que se repita 6 veces
+$ : Fin de la linea
+* : 0 o mas ocurrencias 
+. : Cualquier caracter
+[24] 2 o 4, y excluir lo que hay adentro: [^/]
+
+
+grep '[0-9]\{4\}' movies2.csv
+
+
+
+taller:
+
+1 - Comentarear Lineas
+sed 's/^/# /g' file1.py > file2.py
+sed 's/^#//g' file2.py > file3.py
+
+2 - Reemplazar el primer caracter si no es alfabetico, por nada.
+sed 's/^[^a-zA-Z]//g' frases2
+
+Ejercicios con (backreferences)----------------------
+3 - Poner entre parentesis - 
+
+sed 's/\([A-Z]\)/(\1)/g' frases
+
+convertir mayusculas a minusculas
+
+sed 's/\(.*\)/\L\1/g' frases
+sed 's/\(.*\)/\U\1/g' frases
+
+4 - Poner entre comillas:
+sed 's/.*/"&"/g' frases
+
+
+---------------------------------------------------
+Limpieza:
+
+1 – Eliminar filas vacías
+2 – Eliminar filas duplicadas
+3 – Reemplazo de caracteres especiales
+4 – Campos Vacíos
+5 – Cambiar formato de fechas
+6 – Formatos numéricos (valores monetarios)
+7 – Eliminar columnas con valores constantes.
+
+1 – Eliminar filas vacías
+
+grep -E '^(;)|(;)$' movies.csv
+
+sed '/^;\|;$/d' movies.csv
+sed '/^;\|[^a-zA-Z0-9]+;\|;$/d' movies2.csv > movies3.csv
+
+
+2 – Eliminar filas duplicadas
+cat movies3.csv | sort | uniq > movies4.csv
+
+3 – Reemplazo de caracteres especiales
+iconv -f ISO-8859-1 -t UTF-8//TRANSLIT movies4.csv -o movies5.csv
+file -i movies4.csv
+
+sed 's/ñ/n/g' movies5.csv > movies6.csv
+
+
+4 – Campos Vacíos
+sed 's/;;/;NULL;/g' movies6.csv > movies7.csv
+
+5 – Cambiar formato de fechas
+
+October 30/2015 => 1998-01-01
+
+
+
+grep '[a-zA-z]+ [0-9][0-9]/[0-9][0-9][0-9][0-9]' 
+sed -E 's/([a-zA-z]+) ([0-9][0-9]).([0-9][0-9][0-9][0-9])/\3-\2-\1/g' movies7.csv > movies8.csv
+
+
+
+ 
+
+
