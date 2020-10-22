@@ -14,22 +14,22 @@ while IFS=, read  col1 col2 col3
 
 # 2- Limpieza general del archivo
 
-		filename="data1.csv"
-        sed "s/\t/,/g" $filename > out.csv
-        sed -i 's/[[:space:]]\+/,/g' out.csv
-        sed -i "s/ /,/g" out.csv        
-        sed -i '/^ *$/d' out.csv
-        sed -i "s/[,]+/,/g" out.csv
-        cat out.csv
+filename="data1.csv"
+sed "s/\t/,/g" $filename > out.csv
+sed -i 's/[[:space:]]\+/,/g' out.csv
+sed -i "s/ /,/g" out.csv        
+sed -i '/^ *$/d' out.csv
+sed -i "s/[,]+/,/g" out.csv
+cat out.csv
 		
 		
 		
 # 3 - Llevando la información a arrays
 
-IFS=',' read -ra arraylinea <<< "${col1}"
+IFS=',' read -ra miArray <<< "${linea}"
 
 
-# 4 - Recorriendo un array:
+# 4 - Recorriendo un array
 
 #!/bin/bash
 numeros=(1 2 3 4 5)
